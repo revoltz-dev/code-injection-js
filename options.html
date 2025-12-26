@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Code Injection</title>
+  <link rel="icon" type="image/png" href="images/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #4285f4;
+      --primary-hover: #3b78e7;
+      --primary-active: #3367d6;
+      --danger-color: #ea4335;
+      --success-color: #34a853;
+      --warning-color: #fbbc05;
+      --text-color: #202124;
+      --secondary-text: #5f6368;
+      --border-color: #dadce0;
+      --background-light: #f8f9fa;
+      --background-white: #ffffff;
+      --shadow-sm: 0 1px 2px rgba(60, 64, 67, 0.1);
+      --shadow-md: 0 2px 6px rgba(60, 64, 67, 0.15);
+      --border-radius: 8px;
+      --transition: all 0.2s ease;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      margin-top: 10px;
+      padding: 0 4px;
+    }
+
+    .logo-container img {
+      max-width: 280px;
+      display: block;
+      margin: 0 auto;
+      cursor: pointer;
+    }
+
+    .icon-button {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border-radius: 50%;
+      background-color: var(--background-white);
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      font-size: 16px;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+    }
+
+    .icon-button:hover {
+      background-color: var(--background-light);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+      color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .icon-button:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .logo-center {
+      flex: 1;
+      text-align: center;
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #8ab4f8;
+      --primary-hover: #aecbfa;
+      --primary-active: #669df6;
+      --danger-color: #f28b82;
+      --success-color: #81c995;
+      --warning-color: #fdd663;
+      --text-color: #e8eaed;
+      --secondary-text: #9aa0a6;
+      --border-color: #3c4043;
+      --background-light: #202124;
+      --background-white: #292a2d;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      color: var(--text-color);
+      background-color: var(--background-white);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+
+    .option-group {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background-color: var(--background-light);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--text-color);
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-right: 10px;
+    }
+
+    button.danger {
+      background-color: #ea4335;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .button-group {
+      margin-top: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 200px;
+      font-family: monospace;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .message {
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      text-align: center;
+      color: white;
+      animation: fadeIn 0.3s ease;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .message.success {
+      background-color: #d4edda;
+      color: #155724;
+      border-left: 4px solid #28a745;
+    }
+
+    .message.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border-left: 4px solid #dc3545;
+    }
+
+    .author {
+      margin-top: 10px;
+      font-style: italic;
+      color: #666;
+    }
+
+    .option-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .option-description {
+      margin-top: 5px;
+      font-size: 12px;
+      color: var(--secondary-text);
+    }
+
+    .theme-options {
+      margin-top: 12px;
+    }
+
+    .switch-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 24px;
+      margin-left: 8px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--border-color);
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+    }
+
+    input:checked+.slider {
+      background-color: var(--primary-color);
+    }
+
+    input:focus+.slider {
+      box-shadow: 0 0 1px var(--primary-color);
+    }
+
+    input:checked+.slider:before {
+      transform: translateX(18px);
+    }
+
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+    .language-selector {
+      margin-top: 12px;
+    }
+
+    select {
+      padding: 6px 12px;
+      background-color: var(--background-white);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 14px;
+      width: 200px;
+      outline: none;
+    }
+
+    select:focus {
+      border-color: var(--primary-color);
+    }
+
+    .app-footer {
+      margin-top: 20px;
+      padding: 12px 20px;
+      text-align: center;
+      color: var(--secondary-text);
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .app-footer p {
+      margin: 0 0 8px 0;
+      font-size: 11px;
+    }
+
+    .app-footer-logo {
+      display: inline-block;
+      height: 32px;
+      opacity: 1;
+      transition: all 0.3s ease;
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+
+    .app-footer-logo:hover {
+      opacity: 1;
+      transform: scale(1.1);
+      animation-play-state: paused;
+    }
+
+    @keyframes logoPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.08);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="logo-container">
+    <button id="back-header" class="icon-button" title="Voltar para gerenciamento">
+      <span style="font-size: 18px;">←</span>
+    </button>
+    <div class="logo-center">
+      <img id="header-icon" src="images/code-injection[dark].png" alt="Code Injection">
+    </div>
+    <button id="toggle-theme-header" class="icon-button" title="Alternar modo escuro">
+      <span>🌓</span>
+    </button>
+  </div>
+
+  <h1>Opções</h1>
+
+  <div class="option-group">
+    <h2>Gerenciamento de Dados</h2>
+    <p>Você pode exportar todos os dados de scripts para backup, ou importar dados previamente salvos.</p>
+    <div class="button-group">
+      <button id="export-data">Exportar Dados</button>
+      <button id="import-data">Importar Dados</button>
+    </div>
+    <input type="file" id="import-file" style="display: none;" accept=".json">
+  </div>
+
+  <div class="option-group">
+    <h2>Sincronização</h2>
+    <p>Sincronize seus scripts entre dispositivos usando sua conta do Chrome.</p>
+    <div class="theme-options">
+      <div class="option-row">
+        <label>
+          <span>Sincronização Automática</span>
+          <div class="switch-container">
+            <span id="sync-status">Desligado</span>
+            <label class="switch">
+              <input type="checkbox" id="sync-toggle">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </label>
+      </div>
+      <p class="option-description">Quando habilitada, seus scripts serão sincronizados automaticamente entre todos os
+        dispositivos conectados à sua conta do Chrome.</p>
+      <div class="button-group" style="margin-top: 15px;">
+        <button id="sync-now">Sincronizar Agora</button>
+        <button id="sync-status-btn" style="background-color: var(--secondary-text);">Ver Status</button>
+      </div>
+      <div id="sync-info"
+        style="margin-top: 10px; padding: 10px; background-color: var(--background-light); border-radius: 4px; font-size: 12px; color: var(--secondary-text); display: none;">
+        <div id="sync-info-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option-group">
+    <h2>Configurações de Aparência</h2>
+    <p>Você pode personalizar o tema de exibição e opções de aparência da extensão.</p>
+    <div class="theme-options">
+      <div class="option-row">
+        <label>
+          <span>Modo Escuro</span>
+          <div class="switch-container">
+            <span id="theme-status">Desligado</span>
+            <label class="switch">
+              <input type="checkbox" id="theme-toggle">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </label>
+      </div>
+      <p class="option-description">Habilitar o modo escuro altera o esquema de cores da interface da extensão, adequado
+        para uso em ambientes com pouca luz.</p>
+    </div>
+  </div>
+
+  <div class="option-group">
+    <h2>Configurações Avançadas</h2>
+    <p>Você pode usar as seguintes opções para redefinir ou limpar todos os dados.</p>
+    <div class="button-group">
+      <button id="clear-data" class="danger">Limpar Todos os Scripts</button>
+    </div>
+  </div>
+
+  <div class="option-group">
+    <h2>Sobre</h2>
+    <p>Code Injection</p>
+    <p>Uma extensão de navegador que permite injetar código JavaScript personalizado em qualquer site.</p>
+    <p>Suporta múltiplos métodos de injeção, compatível com sites com várias restrições CSP.</p>
+    <div class="author">
+      <p><span>Autor</span>: Revoltz</p>
+      <p>© 2023 Revoltz. <span>Todos os direitos reservados.</span></p>
+      <p><a href="https://revoltz.dev" target="_blank">revoltz.dev</a></p>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <p>Desenvolvido por</p>
+    <a href="https://revoltz.dev" target="_blank">
+      <img src="images/revoltz.png" alt="Revoltz" class="app-footer-logo">
+    </a>
+  </footer>
+
+  <script type="module" src="options.js"></script>
+</body>
+
+</html>

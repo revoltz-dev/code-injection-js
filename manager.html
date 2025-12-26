@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Code Injection</title>
+  <link rel="icon" type="image/png" href="images/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #4285f4;
+      --primary-hover: #3b78e7;
+      --primary-active: #3367d6;
+      --danger-color: #ea4335;
+      --success-color: #34a853;
+      --warning-color: #fbbc05;
+      --text-color: #202124;
+      --secondary-text: #5f6368;
+      --border-color: #dadce0;
+      --background-light: #f8f9fa;
+      --background-white: #ffffff;
+      --shadow-sm: 0 1px 2px rgba(60, 64, 67, 0.1);
+      --shadow-md: 0 2px 6px rgba(60, 64, 67, 0.15);
+      --border-radius: 8px;
+      --transition: all 0.2s ease;
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #8ab4f8;
+      --primary-hover: #aecbfa;
+      --primary-active: #669df6;
+      --danger-color: #f28b82;
+      --success-color: #81c995;
+      --warning-color: #fdd663;
+      --text-color: #e8eaed;
+      --secondary-text: #9aa0a6;
+      --border-color: #3c4043;
+      --background-light: #202124;
+      --background-white: #292a2d;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: var(--text-color);
+      background-color: var(--background-white);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      margin-top: 10px;
+      padding: 0 4px;
+    }
+
+    .logo-container img {
+      max-width: 280px;
+      display: block;
+      margin: 0 auto;
+      cursor: pointer;
+    }
+
+    .icon-button {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border-radius: 50%;
+      background-color: var(--background-white);
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      font-size: 16px;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+    }
+
+    .icon-button:hover {
+      background-color: var(--background-light);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+      color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .icon-button:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .logo-center {
+      flex: 1;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background-color: var(--background-light);
+    }
+
+    tr:hover {
+      background-color: var(--background-light);
+    }
+
+    .actions {
+      display: flex;
+      gap: 5px;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button.small {
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+
+    button.danger {
+      background-color: #ea4335;
+    }
+
+    button.toggle-enable {
+      background-color: var(--success-color);
+    }
+
+    button.toggle-disable {
+      background-color: var(--warning-color);
+      color: #333;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    tr.script-disabled {
+      opacity: 0.7;
+    }
+
+    tr.script-disabled:hover {
+      opacity: 0.9;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 16px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    .status-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.3);
+    }
+
+    .status-badge.status-enabled {
+      background: linear-gradient(135deg, var(--success-color) 0%, #2d9348 100%);
+      color: white;
+    }
+
+    .status-badge.status-enabled::before {
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3), 0 0 8px rgba(52, 168, 83, 0.4);
+    }
+
+    .status-badge.status-disabled {
+      background: linear-gradient(135deg, var(--warning-color) 0%, #f9ab00 100%);
+      color: #1a1a1a;
+    }
+
+    .status-badge.status-disabled::before {
+      background-color: rgba(26, 26, 26, 0.8);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2), 0 0 8px rgba(251, 188, 5, 0.3);
+    }
+
+    [data-theme="dark"] .status-badge.status-disabled {
+      color: #f5f5f5;
+    }
+
+    [data-theme="dark"] .status-badge.status-disabled::before {
+      background-color: rgba(245, 245, 245, 0.9);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      background-color: var(--background-light);
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+    }
+
+    .search-box {
+      padding: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 14px;
+      width: 250px;
+      background-color: var(--background-white);
+      color: var(--text-color);
+    }
+
+    .error-message {
+      background: linear-gradient(135deg, #c5221f 0%, #a50e0e 100%);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      opacity: 1;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(197, 34, 31, 0.5);
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    .info-message {
+      background: linear-gradient(135deg, #1a73e8 0%, #1557b0 100%);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      opacity: 1;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(26, 115, 232, 0.5);
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    [data-theme="dark"] .error-message {
+      background: linear-gradient(135deg, #ea4335 0%, #c5221f 100%);
+      box-shadow: 0 2px 8px rgba(234, 67, 53, 0.6);
+    }
+
+    [data-theme="dark"] .info-message {
+      background: linear-gradient(135deg, #4285f4 0%, #1a73e8 100%);
+      box-shadow: 0 2px 8px rgba(66, 133, 244, 0.6);
+    }
+
+    .lang-toggle {
+      margin-left: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+
+    .lang-toggle:hover {
+      background-color: var(--background-light);
+    }
+
+    .app-footer {
+      margin-top: 20px;
+      padding: 12px 20px;
+      text-align: center;
+      color: var(--secondary-text);
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .app-footer p {
+      margin: 0 0 8px 0;
+      font-size: 11px;
+    }
+
+    .app-footer-logo {
+      display: inline-block;
+      height: 32px;
+      opacity: 1;
+      transition: all 0.3s ease;
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+
+    .app-footer-logo:hover {
+      opacity: 1;
+      transform: scale(1.1);
+      animation-play-state: paused;
+    }
+
+    @keyframes logoPulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.08);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="logo-container">
+    <button id="options-header" class="icon-button" title="Abrir opções">
+      <span style="font-size: 18px;">⚙️</span>
+    </button>
+    <div class="logo-center">
+      <img id="header-icon" src="images/code-injection[dark].png" alt="Code Injection">
+    </div>
+    <button id="toggle-theme-header" class="icon-button" title="Alternar modo escuro">
+      <span>🌓</span>
+    </button>
+  </div>
+
+  <div class="toolbar">
+    <button id="add-new">Adicionar Novo Script</button>
+    <input type="text" id="search" class="search-box" placeholder="Buscar scripts...">
+  </div>
+
+  <table id="scripts-table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Domínio</th>
+        <th>Status</th>
+        <th>Execução</th>
+        <th>Criado Em</th>
+        <th>Atualizado Em</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody id="scripts-list">
+    </tbody>
+  </table>
+
+  <div id="empty-state" class="empty-state" style="display: none;">
+    <h3>Nenhum script encontrado</h3>
+    <p>Clique no botão "Adicionar Novo Script" para criar um novo script</p>
+  </div>
+
+  <footer class="app-footer">
+    <p>Desenvolvido por</p>
+    <a href="https://revoltz.dev" target="_blank">
+      <img src="images/revoltz.png" alt="Revoltz" class="app-footer-logo">
+    </a>
+  </footer>
+
+  <script type="module" src="manager.js"></script>
+</body>
+
+</html>
