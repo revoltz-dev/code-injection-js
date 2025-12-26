@@ -2,6 +2,9 @@
 
 Uma extensão poderosa para navegadores baseados em Chromium que permite injetar código JavaScript personalizado em qualquer site da web. Desenvolvida para desenvolvedores, testadores e usuários avançados que precisam modificar ou estender o comportamento de páginas web.
 
+<img width="511" height="812" alt="image" src="https://github.com/user-attachments/assets/90529a31-c32d-456f-87a4-cbf9b877ef1c" />
+<img width="1295" height="553" alt="image" src="https://github.com/user-attachments/assets/f2a6402c-e33b-4233-9210-391bdabe9315" />
+
 ## 📋 Descrição
 
 **Code Injection** é uma extensão (Manifest V3) compatível com diversos navegadores que oferece uma interface completa para criar, gerenciar e executar scripts JavaScript personalizados em sites específicos. Com um editor de código avançado, sistema de sincronização e múltiplos métodos de injeção, esta ferramenta é ideal para:
@@ -151,4 +154,5 @@ code-injection-js/
 ## 📝 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
 
