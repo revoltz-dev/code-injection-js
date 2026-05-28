@@ -1,4 +1,4 @@
-# Code Injection
+# Code Injection (Browser Extension)
 
 A powerful Chromium-based browser extension that lets you inject custom JavaScript into any website. Built for developers, testers, and power users who need to modify or extend the behavior of web pages.
 
