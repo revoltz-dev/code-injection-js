@@ -1,158 +1,155 @@
 # Code Injection
 
-Uma extensão poderosa para navegadores baseados em Chromium que permite injetar código JavaScript personalizado em qualquer site da web. Desenvolvida para desenvolvedores, testadores e usuários avançados que precisam modificar ou estender o comportamento de páginas web.
+A powerful Chromium-based browser extension that lets you inject custom JavaScript into any website. Built for developers, testers, and power users who need to modify or extend the behavior of web pages.
 
 <img width="511" height="812" alt="image" src="https://github.com/user-attachments/assets/90529a31-c32d-456f-87a4-cbf9b877ef1c" />
 
-## 📋 Descrição
+## 📋 Description
 
-**Code Injection** é uma extensão (Manifest V3) compatível com diversos navegadores que oferece uma interface completa para criar, gerenciar e executar scripts JavaScript personalizados em sites específicos. Com um editor de código avançado, sistema de sincronização e múltiplos métodos de injeção, esta ferramenta é ideal para:
+**Code Injection** is a Manifest V3 extension compatible with several browsers that provides a full interface to create, manage, and run custom JavaScript on specific sites. With an advanced code editor, a sync system, and multiple injection methods, this tool is great for:
 
-- **Desenvolvedores**: Testar modificações em sites sem precisar editar o código-fonte
-- **Testadores**: Criar scripts de automação e testes personalizados
-- **Usuários Avançados**: Personalizar a experiência de navegação em qualquer site
-- **Pesquisadores**: Analisar e modificar o comportamento de páginas web
+- **Developers**: test changes on websites without editing the source code
+- **Testers**: build custom automation and test scripts
+- **Power users**: customize the browsing experience on any site
+- **Researchers**: analyze and tweak how web pages behave
 
-## ✨ Funcionalidades
+## ✨ Features
 
-### 🎯 Injeção de Código
-- **Execução Automática**: Scripts são injetados automaticamente quando você visita um site correspondente
-- **Execução Manual**: Controle total sobre quando executar seus scripts
-- **Múltiplos Métodos de Injeção**: Sistema robusto com fallbacks para garantir que o código seja executado mesmo em sites com políticas de segurança restritivas (CSP)
-- **Suporte a Wildcards**: Use padrões como `*.example.com` para aplicar scripts a múltiplos subdomínios
+### 🎯 Code Injection
+- **Auto-run**: scripts are injected automatically when you visit a matching site
+- **Manual run**: full control over when your scripts execute
+- **Multiple injection methods**: a robust system with fallbacks so the code runs even on sites with strict Content Security Policies (CSP)
+- **Wildcard support**: use patterns like `*.example.com` to apply scripts across multiple subdomains
 
-### 📝 Editor de Código
-- **CodeMirror Integration**: Editor de código profissional com syntax highlighting
-- **Autocompletar**: Sugestões inteligentes de código JavaScript (pode ser habilitado/desabilitado)
-- **Formatação de Código**: Formate seu código automaticamente com um clique
-- **Numeração de Linhas**: Facilita a navegação em scripts longos
-- **Temas**: Modo claro e escuro (Monokai) para melhor experiência visual
+### 📝 Code Editor
+- **CodeMirror integration**: professional code editor with syntax highlighting
+- **Autocomplete**: smart JavaScript suggestions (can be toggled on/off)
+- **Code formatting**: format your code in one click
+- **Line numbers**: easier navigation in long scripts
+- **Themes**: light and dark (Monokai) modes for the best visual experience
 
-### 🗂️ Gerenciamento de Scripts
-- **Interface de Gerenciamento**: Visualize todos os seus scripts em uma tabela organizada
-- **Busca e Filtros**: Encontre rapidamente scripts por nome ou domínio
-- **Ativar/Desativar**: Controle quais scripts estão ativos sem precisar deletá-los
-- **Edição Rápida**: Edite scripts diretamente do popup ou abra o editor completo
-- **Histórico**: Veja quando cada script foi criado e atualizado
+### 🗂️ Script Management
+- **Management interface**: see all your scripts in an organized table
+- **Search and filters**: quickly find scripts by name or domain
+- **Enable/disable**: toggle scripts on and off without deleting them
+- **Quick editing**: edit scripts straight from the popup or open the full editor
+- **History**: see when each script was created and last updated
 
-### 🔄 Sincronização
-- **Sincronização de Dados**: Sincronize seus scripts entre diferentes dispositivos usando a sincronização do navegador
-- **Sincronização Automática**: Mantenha seus dados atualizados automaticamente
-- **Sincronização Manual**: Force uma sincronização quando necessário
-- **Status de Sincronização**: Monitore o status e o tempo até a próxima sincronização
+### 🔄 Sync
+- **Data sync**: sync your scripts across devices using browser sync
+- **Auto sync**: keep your data up to date automatically
+- **Manual sync**: force a sync whenever you need
+- **Sync status**: monitor the status and time until the next sync
 
-### 💾 Backup e Restauração
-- **Exportação**: Exporte todos os seus scripts para um arquivo JSON
-- **Importação**: Restaure scripts de um backup anterior
-- **Limpeza**: Remova todos os scripts de uma vez (com confirmação)
+### 💾 Backup & Restore
+- **Export**: export all your scripts to a JSON file
+- **Import**: restore scripts from a previous backup
+- **Clear all**: remove every script at once (with confirmation)
 
-### 🎨 Personalização
-- **Tema Escuro/Claro**: Alternância fácil entre temas
-- **Preferências Persistidas**: Suas configurações são salvas automaticamente
+### 🎨 Customization
+- **Dark/Light theme**: easy toggle between themes
+- **Persisted preferences**: your settings are saved automatically
 
-## 🚀 Instalação
+## 🚀 Installation
 
-### Instalação Manual
+### Manual installation
 
-1. **Clone ou baixe este repositório**
+1. **Clone or download this repository**
    ```bash
-   git clone https://github.com/seu-usuario/code-injection-js.git
+   git clone https://github.com/revoltz-dev/code-injection-js.git
    cd code-injection-js
    ```
 
-2. **Abra seu navegador e vá para Extensões**
-   - **Chrome/Edge/Brave**: Digite `chrome://extensions/` na barra de endereços
-   - **Opera**: Digite `opera://extensions/` na barra de endereços
-   - Ou vá em Menu → Mais ferramentas → Extensões
+2. **Open your browser and go to Extensions**
+   - **Chrome/Edge/Brave**: type `chrome://extensions/` in the address bar
+   - **Opera**: type `opera://extensions/` in the address bar
+   - Or go to Menu → More tools → Extensions
 
-3. **Ative o Modo do Desenvolvedor**
-   - No canto superior direito, ative o toggle "Modo do desenvolvedor"
+3. **Enable Developer Mode**
+   - In the top right corner, turn on the "Developer mode" toggle
 
-4. **Carregue a Extensão**
-   - Clique em "Carregar sem compactação" (ou "Load unpacked")
-   - Selecione a pasta do projeto (`code-injection-js`)
+4. **Load the extension**
+   - Click "Load unpacked"
+   - Select the project folder (`code-injection-js`)
 
-5. **Pronto!**
-   - A extensão estará instalada e pronta para uso
-   - Procure pelo ícone na barra de ferramentas do navegador
+5. **Done!**
+   - The extension is installed and ready to use
+   - Look for the icon in the browser's toolbar
 
-## 📖 Como Usar
+## 📖 How to use
 
-### Criando um Script
+### Creating a script
 
-1. **Pelo Popup**:
-   - Clique no ícone da extensão na barra de ferramentas
-   - Clique em "Adicionar Script" ou "Criar Script"
-   - Digite o domínio do site (ex: `example.com` ou `*.example.com`)
-   - Escreva seu código JavaScript
-   - Salve o script
+1. **From the popup**:
+   - Click the extension icon in the toolbar
+   - Click "Add Script" or "Create Script"
+   - Type the site's domain (e.g., `example.com` or `*.example.com`)
+   - Write your JavaScript code
+   - Save the script
 
-2. **Pelo Gerenciador**:
-   - Abra o popup e clique em "Gerenciar Scripts"
-   - Clique em "Adicionar Novo"
-   - Preencha os campos e salve
+2. **From the manager**:
+   - Open the popup and click "Manage Scripts"
+   - Click "Add New"
+   - Fill in the fields and save
 
-### Editando um Script
+### Editing a script
 
-- **Pelo Popup**: Clique em "Editar Script" quando estiver em um site com script ativo
-- **Pelo Gerenciador**: Clique no botão "Editar" na tabela de scripts
-- **Direto no Popup**: Use o editor inline para edições rápidas
+- **From the popup**: click "Edit Script" while on a site with an active script
+- **From the manager**: click the "Edit" button in the scripts table
+- **Inline in the popup**: use the inline editor for quick edits
 
-### Configurando Execução
+### Run mode
 
-- **Automática**: O script será executado automaticamente quando você visitar o site
-- **Manual**: O script só será executado quando você clicar no botão "Executar Manualmente"
+- **Automatic**: the script runs automatically when you visit the site
+- **Manual**: the script only runs when you click "Run Manually"
 
-### Gerenciando Scripts
+### Managing scripts
 
-- **Ativar/Desativar**: Use o toggle na tabela de scripts ou no popup
-- **Buscar**: Digite na barra de busca para filtrar scripts
-- **Excluir**: Clique no botão "Excluir" (com confirmação)
+- **Enable/disable**: use the toggle in the scripts table or in the popup
+- **Search**: type in the search bar to filter scripts
+- **Delete**: click the "Delete" button (with confirmation)
 
-## 🛠️ Estrutura do Projeto
+## 🛠️ Project structure
 
 ```
 code-injection-js/
-├── background.js          # Service Worker (lógica principal de injeção)
-├── popup.html/js          # Interface do popup
-├── editor.html/js         # Editor completo de scripts
-├── manager.html/js        # Gerenciador de scripts
-├── options.html/js        # Página de opções/configurações
-├── sync.js                # Sistema de sincronização
-├── manifest.json          # Manifesto da extensão
-├── injected-scripts/      # Scripts injetados nas páginas
-│   ├── injector.js        # Script auxiliar de injeção
-│   └── executor.js        # Executor de scripts
-├── lib/                   # Bibliotecas externas
-│   └── codemirror/        # Editor CodeMirror
-└── images/                # Ícones e imagens
+├── background.js          # Service worker (main injection logic)
+├── popup.html/js          # Popup UI
+├── editor.html/js         # Full script editor
+├── manager.html/js        # Script manager
+├── options.html/js        # Options/settings page
+├── sync.js                # Sync system
+├── manifest.json          # Extension manifest
+├── injected-scripts/      # Scripts injected into pages
+│   ├── injector.js        # Auxiliary injection script
+│   └── executor.js        # Script executor
+├── lib/                   # External libraries
+│   └── codemirror/        # CodeMirror editor
+└── images/                # Icons and images
 ```
 
-## 🔧 Tecnologias Utilizadas
+## 🔧 Tech stack
 
-- **Manifest V3**: Versão mais recente da API de extensões
-- **CodeMirror**: Editor de código JavaScript
-- **Storage API**: Armazenamento local e sincronização
-- **Scripting API**: Injeção de scripts em páginas web
-- **Vanilla JavaScript**: Sem dependências externas pesadas
+- **Manifest V3**: latest extension API version
+- **CodeMirror**: JavaScript code editor
+- **Storage API**: local storage and sync
+- **Scripting API**: script injection into web pages
+- **Vanilla JavaScript**: no heavy external dependencies
 
-## 🔒 Segurança e Privacidade
+## 🔒 Security & Privacy
 
-- **Armazenamento Local**: Seus scripts são armazenados localmente no navegador
-- **Sem Telemetria**: A extensão não coleta ou envia dados para servidores externos
-- **Sincronização Opcional**: A sincronização é opcional e controlada pelo usuário
-- **Permissões Mínimas**: A extensão solicita apenas as permissões necessárias para funcionar
+- **Local storage**: your scripts are stored locally in the browser
+- **No telemetry**: the extension does not collect or send data to external servers
+- **Optional sync**: sync is opt-in and controlled by the user
+- **Minimal permissions**: only the permissions strictly required to work are requested
 
-## ⚠️ Avisos Importantes
+## ⚠️ Important notes
 
-- **Use com Responsabilidade**: Injetar código em sites pode modificar seu comportamento de forma inesperada
-- **Teste Antes**: Sempre teste seus scripts em ambientes seguros antes de usar em produção
-- **Backup Regular**: Faça backups regulares dos seus scripts usando a função de exportação
-- **Compatibilidade**: Alguns sites com políticas de segurança muito restritivas podem bloquear a injeção
+- **Use responsibly**: injecting code into websites can change behavior in unexpected ways
+- **Test first**: always test your scripts in safe environments before using in production
+- **Regular backups**: back up your scripts regularly using the export feature
+- **Compatibility**: some sites with very strict security policies may block injection
 
-## 📝 Licença
+## 📝 License
 
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
-
-
-
+This project is licensed under the MIT License. See the `LICENSE` file for details.
